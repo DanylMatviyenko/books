@@ -1,0 +1,51 @@
+<!--<!DOCTYPE html>
+<html>
+<body>
+
+  <a name="list">the list</a>
+<ul>
+  <li><a href="http://google.com">http://google.com</a></li>
+  <li><a href="/tutorial">/tutorial.html</a></li>
+  <li><a href="local/path">local/path</a></li>
+  <li><a href="ftp://ftp.com/my.zip">ftp://ftp.com/my.zip</a></li>
+  <li><a href="http://nodejs.org">http://nodejs.org</a></li>
+  <li><a href="http://internal.com/test">http://internal.com/test</a></li>
+</ul>
+
+  <script>
+  let reg = /:\/\//;
+  let links = document.body.querySelectorAll('a[href]');
+  for(let atr of links) {
+  	let textHref = atr.getAttribute('href');
+  	if(reg.test(textHref) && textHref !== 'http://internal.com/test') {
+  		atr.style.color = 'orange';
+  	}
+  }
+  </script>
+</body>
+</html>*/-->
+<!DOCTYPE HTML>
+<html>
+<body>
+
+  <a name="list">The list:</a>
+  <ul>
+    <li><a href="http://google.com">http://google.com</a></li>
+    <li><a href="/tutorial">/tutorial.html</a></li>
+    <li><a href="local/path">local/path</a></li>
+    <li><a href="ftp://ftp.com/my.zip">ftp://ftp.com/my.zip</a></li>
+    <li><a href="http://nodejs.org">http://nodejs.org</a></li>
+    <li><a href="http://internal.com/test">http://internal.com/test</a></li>
+  </ul>
+
+  <script>
+    let aList = document.querySelectorAll('ul a');
+    for(let a of aList) {
+      if(a.matches('[href*="://"]') && !a.matches('[href^="http://internal.com"]')) {
+        a.style.color = 'orange';
+      }
+    }
+  </script>
+
+</body>
+</html>

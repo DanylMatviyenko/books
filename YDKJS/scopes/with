@@ -1,0 +1,15 @@
+var obj = {
+	a : 4,
+	b : 8
+};
+
+function wth (obj) {
+	with(obj) {				//finds obj.a and assigns 10, makes LHS lookup and creats global variable 'c'
+		a = 10;				//'with' creating new separate obj-scope
+		c = 12;
+	}
+	console.log(obj.a, obj.c, c); // 10, underfined, 12(global variable)  
+}
+
+wth(obj); 
+

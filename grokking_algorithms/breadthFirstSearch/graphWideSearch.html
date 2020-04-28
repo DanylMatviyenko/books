@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<script>
+	/*jshint esversion: 6*/
+function search(graph, name) {
+	let queue = graph[name];
+	let searched = [name];
+	while (queue.length > 0) {
+		let handleElement = queue[0];
+		let shifted = queue.shift();
+		if(!searched.includes(shifted)) {
+			if (isSeller(shifted)) {
+				return shifted;
+			}else {
+				searched.push(handleElement);
+				if(graph[shifted]) {
+					queue = queue.concat(graph[shifted]);
+				}
+			}
+		}
+	}
+	return;
+}
+function isSeller(string) {
+	if(/seller/i.test(string)) {
+		return true;
+	}
+}
+
+let graph = {
+	you: ["Alice", "Jhon", "Daniel", "Younes"],
+	Alice: ["Victor", "you", "Younes", "Carel Seller"]
+};
+
+console.log(search(graph, "you"));
+</script>

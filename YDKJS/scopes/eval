@@ -1,0 +1,7 @@
+function foo(str,b) {
+	"use strict";		// in the strict mode "eval" has own scope
+	eval(str);			// c - part of 'foo' scope
+	console.log(c, b);  // 'log' won't find c = 54
+}
+var c = 54;
+foo("var c = 3;", 2);

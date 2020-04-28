@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <style>
+    table {
+      border-collapse: collapse;
+    }
+
+    td,
+    th {
+      border: 1px solid black;
+      padding: 3px;
+      text-align: center;
+    }
+
+    th {
+      font-weight: bold;
+      background-color: #E6E6E6;
+    }
+  </style>
+</head>
+
+<body>
+
+
+  <div id="calendar"></div>
+
+  <script>
+    /*jshint esversion: 6*/
+    function createCalendar(elem, year, month) {
+      let startDay = new Date(year, month - 1, 1).getDay();
+      if (new Date(year, month - 1, 1).getDay() == 0) {
+        startDay = 7;
+      }
+      const finalDay = new Date(year, month, 0).getDate(); //amount of days
+      let counter = 1;
+      let table = document.createElement('table');
+      table.innerHTML = '<tr><th>пн</th><th>вт</th><th>ср</th><th>чт</th><th>пт</th><th>сб</th><th>вс</th></tr>';
+      for(let i = 0; i < 6; i++) {
+        let tr = document.createElement('tr');
+        for(let k = 0; k < 7; k++) {
+          let td = document.createElement('td');
+          if(i === 0 && k + 1 < startDay || counter > finalDay) {
+            td.textContent = '';
+          }else {
+            td.textContent = counter;
+            counter++;
+          }
+          tr.append(td);
+        }
+        table.append(tr);
+      }
+      elem.append(table);
+    }
+
+    createCalendar(calendar, 2020, 5);
+  </script>
+
+</body>
+</html>

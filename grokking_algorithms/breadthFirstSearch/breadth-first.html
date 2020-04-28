@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<script>
+/* Graphs: Breadth-first search */
+
+function bfs(graph, root) {
+  var nodesLen = {};
+  
+  for (var i = 0; i < graph.length; i++) {
+    nodesLen[i] = Infinity;
+  }
+  nodesLen[root] = 0; //From root node to root node
+  
+  var queue = [root]; //nodes to visit
+  var current; // node that we are traversing
+
+  while (queue.length != 0) {
+    current = queue.shift(); //node to traverse 
+    
+    var curConnected = graph[current]; //nodes that connected to current node
+    var neighborIdx = []; // list of nodes that connected to current node
+    var idx = curConnected.indexOf(1); //first node that connected to current node 
+    while (idx != -1) {
+      neighborIdx.push(idx); //push to list of our neighbors
+      idx = curConnected.indexOf(1, idx + 1); 
+    }
+    
+    for (var j = 0; j < neighborIdx.length; j++) {
+      if (nodesLen[neighborIdx[j]] == Infinity) {
+        nodesLen[neighborIdx[j]] = nodesLen[current] + 1;
+        queue.push(neighborIdx[j]); 
+      }
+    }
+  }
+  return nodesLen;
+}
+
+var exBFSGraph = [
+  [0, 1, 1, 1, 0],
+  [0, 0, 1, 0, 0],
+  [1, 1, 0, 0, 0],
+  [0, 0, 0, 1, 0],
+  [0, 1, 0, 0, 0]
+];
+console.log(bfs(exBFSGraph, 1));
+</script>

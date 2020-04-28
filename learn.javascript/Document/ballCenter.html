@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <style>
+    #field {
+      width: 200px;
+      border: 10px groove black;
+      background-color: #00FF00;
+      position: relative;
+    }
+
+    #ball {
+      position: absolute;
+    }
+  </style>
+</head>
+
+<body onload='loadPage()'>
+
+
+  <div id="field">
+    <img src="https://en.js.cx/clipart/ball.svg" id="ball"> . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+    . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+  </div>
+  
+  <script>
+    /*jshint esversion:6*/
+    function loadPage () {
+      let heightBall = ball.clientHeight;
+      let widthBall = ball.clientWidth;
+      ball.style.top = `${ball.offsetParent.clientHeight / 2 - heightBall / 2}px`;
+      ball.style.left = `${ball.offsetParent.clientWidth / 2 - widthBall / 2}px`;
+    }
+  </script>
+
+</body>
+
+</html>

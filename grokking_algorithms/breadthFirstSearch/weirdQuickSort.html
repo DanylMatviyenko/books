@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+<script>
+function quickSort(arr) {
+	if (arr.length < 2) {
+		return arr;
+	}
+	let base = arr[0];
+	let greater = [];
+	let less = [];
+	for(let value of arr.slice(1)) {
+		value > base ? greater.push(value) : less.push(value);
+	}
+	return quickSort(less).concat(base, quickSort(greater));
+}
+console.log(quickSort([10,5,3]));
+</script>
+</body>
+</html>

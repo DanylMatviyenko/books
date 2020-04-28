@@ -1,0 +1,60 @@
+<!DOCTYPE !html>
+<script>
+/*jshint esversion:6*/
+let graph = {};
+graph.start = {
+	a: 6,
+	b: 2
+};
+graph.a = {
+	fin: 1
+};
+graph.b = {
+	a: 3,
+	fin: 5
+};
+graph.fin = {};
+
+let costs = {
+	a: 6,
+	b: 2,
+	fin: +Infinity
+};
+
+let parents = {
+	a: "start",
+	b: "start",
+	fin: null
+};
+let processed = new Map();
+
+function findLowestCost(costs) {
+	let lowestCost,
+	lowestValue = +Infinity;
+	for(let [key,value] of Object.entries(costs)) {	
+		if(value < lowestValue && !processed.has(key)) {
+			lowestCost = key;
+			lowestValue = value;
+		}
+	}
+	return lowestCost;
+}
+let node;
+node = findLowestCost(costs);
+while(node !== undefined) {
+	let cost = costs[node];
+	let neighbors = graph[node];
+	for(let n of Object.keys(neighbors)) {
+		let newCost = cost + neighbors[n];
+		if(costs[n] > newCost) {
+			costs[n] = newCost;
+			parents[n] = node;
+		}
+	}
+	processed.set(node);
+	node = findLowestCost(costs);
+}
+
+console.log(parents);
+console.log(costs);
+</script>

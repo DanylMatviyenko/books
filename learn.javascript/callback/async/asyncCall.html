@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<script>
+	
+async function wait() {
+  await new Promise(resolve => setTimeout(resolve, 1000));
+
+  return 10;
+}
+
+function f() {
+	wait().then(function(result) {
+		console.log(value);
+	});
+	//return value;
+}
+f();
+</script>

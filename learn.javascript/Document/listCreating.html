@@ -1,0 +1,44 @@
+<!--<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		let liContent = true;
+		let ul = document.createElement('ul');
+		document.body.prepend(ul);
+		while(liContent) {
+			liContent = prompt();
+			if(liContent) {
+				li = document.createElement('li');
+				li.textContent = liContent;
+				ul.append(li);
+			}
+		}
+	</script>
+</body>
+</html>-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		let prom = prompt('li?');
+		let ul = document.createElement('ul');
+			
+			while(prom) {
+				const li = document.createElement('li');
+				li.textContent = prom;
+				ul.append(li);
+				prom = prompt('li?');
+			}
+		document.body.append(ul);
+		console.log(ul);
+	</script>
+</body>
+</html>

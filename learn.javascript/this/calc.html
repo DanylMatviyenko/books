@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+<script>
+let calculator = {
+	read() {
+		this.a = parseInt(prompt('num1'));
+		this.b = parseInt(prompt('num2'));
+	},
+	sum() {
+		return this.a + this.b;
+	}
+};
+calculator.read();
+alert( calculator.sum() );
+</script>
+</body>
+</html>

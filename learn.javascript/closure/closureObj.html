@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+<script>
+let users = [
+  { name: "John", age: 20, surname: "Johnson" },
+  { name: "Pete", age: 18, surname: "Peterson" },
+  { name: "Ann", age: 19, surname: "Hathaway" }
+];
+function byField(arg) {
+	return function(a,b) {
+		return a[arg] > b[arg] ? 1 : -1;
+	};
+}
+users.sort(byField('name'));
+users.sort(byField('age'));
+</script>
+</body>
+</html>

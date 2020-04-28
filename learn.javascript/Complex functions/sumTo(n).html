@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+<script>
+/** RECURSION
+function sumTo(n) {
+	if (n === 1) {
+		return n;
+	}else {
+		return n + sumTo(n-1);
+	}
+}**/
+/**function sumTo(n) {
+	let result = 0;
+	for(; n > 0; n--) {
+		result += n;
+	}
+	return result;
+}**/
+function sumTo(n) {
+	return (n+1)/2*n;
+}
+alert( sumTo(100) );
+</script>
+</body>
+</html>

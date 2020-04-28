@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+  <table id="table">
+    <tr>
+      <th>Имя</th>
+      <th>Фамилия</th>
+      <th>Возраст</th>
+    </tr>
+    <tr>
+      <td>John</td>
+      <td>Smith</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>Pete</td>
+      <td>Brown</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <td>Ann</td>
+      <td>Lee</td>
+      <td>5</td>
+    </tr>
+  </table>
+
+  <script>
+    /*jshint esversion:6*/
+    let tableMap = new Map();
+    let names = [];
+    let trList = document.querySelectorAll('tr:not(:first-child)');
+    for(let tr of trList) {
+      names.push(tr.firstElementChild.textContent);
+      tableMap.set(tr.firstElementChild.textContent, tr);
+      //tr.remove();
+    }
+    names.sort();
+    for(let name of names) {
+      table.tBodies[0].append(tableMap.get(name));
+    }
+
+  </script>
+
+</body>
+</html>

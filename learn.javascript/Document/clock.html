@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		.buttons {
+			border: 0px;
+		}
+	</style>
+</head>
+<body>
+	<div id='time'></div>
+	<fieldset class="buttons">
+		<button id='start' onclick="start()">start</button>
+		<button id='stop' onclick="stop()">stop</button>
+	</fieldset>
+	<script>
+		/*jshint esversion: 6*/
+		let idInt;
+		start();
+		/*let idInt = setInterval(function () {
+			time.innerHTML = `${new Date().getHours()}:${new Date().getMinutes()}:${new Date().getSeconds()}`;
+			},1000);*/
+		function stop () {
+			clearInterval(idInt);
+		}
+		function start () {
+			idInt = setInterval(function () {
+			time.innerHTML = `${new Date().getHours()}:${new Date().getMinutes()}:${new Date().getSeconds()}`;
+			},1000);
+		}
+		console.log(new Date().getHours());
+	</script>
+</body>
+</html>

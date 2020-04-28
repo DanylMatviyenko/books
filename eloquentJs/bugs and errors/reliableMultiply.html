@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+<script>
+	/*jshint esversion: 6*/
+class MultiplicatorUnitFailure extends Error {}
+
+function primitiveMultiply(a, b) {
+  if (Math.random() < 0.2) {
+    return a * b;
+  } else {
+    throw new MultiplicatorUnitFailure("Klunk");
+  }
+}
+
+function reliableMultiply(a, b) {
+  for(;;) {
+  	try {
+  		let result = primitiveMultiply(a, b);
+  		return result;
+  	}catch(e) {
+  		if(e instanceof Error) {
+  			console.log('bad random');
+  		}else {
+  			throw e;
+  		}
+  	}
+  }
+}
+
+console.log(reliableMultiply(8, 8));
+// → 64
+</script>
+</body>
+</html>
