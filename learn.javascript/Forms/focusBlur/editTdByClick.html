@@ -1,0 +1,212 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <style>
+    /* общие стили для таблицы, изменять их не нужно */
+
+th {
+  text-align: center;
+  font-weight: bold;
+}
+
+td {
+  width: 150px;
+  white-space: nowrap;
+  text-align: center;
+  vertical-align: middle;
+  padding: 10px;
+}
+
+.nw {
+  background-color: #999;
+}
+
+.n {
+  background-color: #03f;
+  color: #fff;
+}
+
+.ne {
+  background-color: #ff6;
+}
+
+.w {
+  background-color: #ff0;
+}
+
+.c {
+  background-color: #60c;
+  color: #fff;
+}
+
+.e {
+  background-color: #09f;
+  color: #fff;
+}
+
+.sw {
+  background-color: #963;
+  color: #fff;
+}
+
+.s {
+  background-color: #f60;
+  color: #fff;
+}
+
+.se {
+  background-color: #0c3;
+  color: #fff;
+}
+.textarea {
+  resize: none;
+  padding: 0;
+  border: none;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+.textarea:focus {
+  outline: none;
+}
+.on-editing {
+  text-align: left;
+  padding: 0;
+  background-color: transparent;
+}
+.button-container {
+  position: relative;
+  margin-bottom: -21px;
+}
+
+
+  </style>
+</head>
+
+<body>
+
+
+  <p>Кликните на ячейку таблицы, чтобы отредактировать её. Нажмите ОК или ОТМЕНА, когда закончите.</p>
+
+  <table id="bagua-table">
+    <tr>
+      <th colspan="3">Квадрат <em>Bagua</em>: Направление, Элемент, Цвет, Значение</th>
+    </tr>
+    <tr>
+      <td class="nw"><strong>Северо-Запад</strong>
+        <br>Металл
+        <br>Серебро
+        <br>Старейшины
+      </td>
+      <td class="n"><strong>Север</strong>
+        <br>Вода
+        <br>Синий
+        <br>Перемены
+      </td>
+      <td class="ne"><strong>Северо-Восток</strong>
+        <br>Земля
+        <br>Жёлтый
+        <br>Направление
+      </td>
+    </tr>
+    <tr>
+      <td class="w"><strong>Запад</strong>
+        <br>Металл
+        <br>Золото
+        <br>Молодость
+      </td>
+      <td class="c"><strong>Центр</strong>
+        <br>Всё
+        <br>Пурпурный
+        <br>Гармония
+      </td>
+      <td class="e"><strong>Восток</strong>
+        <br>Дерево
+        <br>Синий
+        <br>Будущее
+      </td>
+    </tr>
+    <tr>
+      <td class="sw"><strong>Юго-Запад</strong>
+        <br>Земля
+        <br>Коричневый
+        <br>Спокойствие
+      </td>
+      <td class="s"><strong>Юг</strong>
+        <br>Огонь
+        <br>Оранжевый
+        <br>Слава
+      </td>
+      <td class="se"><strong>Юго-Восток</strong>
+        <br>Дерево
+        <br>Зеленый
+        <br>Роман
+      </td>
+    </tr>
+
+</table>
+
+
+  <script>
+    /*jshint esversion:6*/
+    const table = document.querySelector('table');
+    let editingFlag = true;
+
+    const createButtons = function(target) {
+        const butContainer = document.createElement('div');
+        butContainer.classList.add('button-container');
+        butContainer.innerHTML = 
+        `
+            <button class="buttons" type"button" data-action="ok">OK</button>
+            <button class="buttons" type"button" data-action="cancel">Cancel</button>
+        `;
+        return butContainer;
+    };
+
+    const editTable = function(event) {
+      const target = event.target.closest('td');
+      const textarea = document.createElement('textarea');
+      textarea.classList.add('textarea');   
+
+      if(!target) return;
+      if(!editingFlag) return;
+      editingFlag = !editingFlag;
+      function butHandler(event) {
+        const buttonTarget = event.target.closest('button');
+
+        if(!buttonTarget) return;
+
+        if(buttonTarget.dataset.action === 'ok') {
+          target.innerHTML = textarea.value;
+        }else if(buttonTarget.dataset.action === 'cancel') {
+          target.innerHTML = cancelHTML;
+        }
+        target.style.height = 'auto';
+        target.classList.remove('on-editing');
+        textarea.remove();
+        butContainer.remove();
+        editingFlag = !editingFlag;
+      }
+
+      textarea.value = target.innerHTML;
+      target.style.height = target.offsetHeight + 'px';
+      target.classList.add('on-editing');
+      let cancelHTML = target.innerHTML;
+      target.innerHTML = '';
+      target.append(textarea);
+      textarea.focus();
+
+      const butContainer = createButtons();
+      textarea.parentElement.append(butContainer);
+
+      butContainer.addEventListener('click', butHandler);
+    };
+
+    table.addEventListener('click', editTable);
+  </script>
+
+</body>
+
+</html>

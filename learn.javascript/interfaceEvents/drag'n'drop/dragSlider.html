@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <style>
+.slider {
+  border-radius: 5px;
+  background: #E0E0E0;
+  background: linear-gradient(left top, #E0E0E0, #EEEEEE);
+  width: 310px;
+  height: 15px;
+  margin: 5px;
+}
+
+.thumb {
+  width: 10px;
+  height: 25px;
+  border-radius: 3px;
+  position: relative;
+  left: 10px;
+  top: -5px;
+  background: blue;
+  cursor: pointer;
+}
+  </style>
+</head>
+
+<body>
+
+  <div id="slider" class="slider">
+    <div class="thumb"></div>
+  </div>
+
+  <script>
+  	/*jshint esversion:6*/
+    const sliderModlule = (function () {
+    	const _thumb = document.querySelector('.thumb');
+    	let _shiftX;
+      _thumb.ondragstart = function() {
+        return false;
+      };
+
+    	const _moveAt = function(pageX) {
+        const sliderCoords = slider.getBoundingClientRect();
+    		let thumbX = pageX - _shiftX;
+    		if(thumbX < sliderCoords.left) {
+    			thumbX = sliderCoords.left;
+    		}else if(thumbX > sliderCoords.left + slider.offsetWidth - _thumb.offsetWidth / 2) {
+    			thumbX = sliderCoords.left + slider.offsetWidth - _thumb.offsetWidth / 2;
+    		}
+    		_thumb.style.left = thumbX + 'px';
+    	};
+
+    	const _onMouseMove = function(event) {
+    		_moveAt(event.pageX);
+    	};
+
+    	const _thumbMouseHandler = function (event) {
+        const thumbCoords = _thumb.getBoundingClientRect();
+        const sliderCoords = slider.getBoundingClientRect();
+    		_thumb.style.position = 'absolute';
+
+    		_thumb.style.top = sliderCoords.top - ((_thumb.offsetHeight - slider.offsetHeight) / 2) + 'px';
+
+        _shiftX = event.clientX - thumbCoords.left;
+    		_moveAt(event.pageX);
+
+    		document.addEventListener('mousemove', _onMouseMove);
+    		document.onmouseup = _dropUpHandler;
+    	};
+
+    	const _dropUpHandler = function () {
+    		//if(typeof document.onmouseup == 'function') {
+	    		document.removeEventListener('mousemove', _onMouseMove);
+    			document.onmouseup = null;	
+    		//}
+
+    	};
+    	_thumb.onmousedown = _thumbMouseHandler;
+    })();
+    //sliderModlule._moveAt(200);
+  </script>
+
+</body>
+</html>

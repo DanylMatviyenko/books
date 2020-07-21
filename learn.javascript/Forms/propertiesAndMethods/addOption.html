@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Option</title>
+</head>
+<body>
+	<select id="genres">
+	  <option value="rock">Рок</option>
+	  <option value="blues" selected>Блюз</option>
+	</select>
+
+	<script>
+		/*jshint esversion:6*/
+		const selectedOption = genres.options[genres.selectedIndex];
+		console.log(selectedOption.text);
+
+		const newOption = new Option('Classic', 'classic', false, true);
+		genres.append(newOption);
+	</script>
+</body>
+</html>

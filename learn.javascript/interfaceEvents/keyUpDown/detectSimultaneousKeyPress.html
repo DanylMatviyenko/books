@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<script>
+	/*jshint esversion:6*/
+	function runOnKeys(func) {
+		let pressesdSet = new Set();
+		/*document.addEventListener('keydown', function(event) {
+			if(!event.code.repeat) {
+				pressesdSet.add(event.code);
+			}
+		});*/
+		let conditionSet = new Set();
+		for(let i = 1; i < arguments.length; i++) {
+			conditionSet.add(arguments[i]);
+		}
+		document.addEventListener('keydown', function (event) {
+			if(!event.repeat) {
+				let allPressed = true;
+				pressesdSet.add(event.code);
+				for(let code of conditionSet) {
+					if(!pressesdSet.has(code)) {
+						allPressed = false;
+					}
+				}
+				if(allPressed) {
+					func();
+					pressesdSet.clear();
+				}
+			}
+		});
+		document.addEventListener('keyup', function(event) {
+			pressesdSet.delete(event.code);
+		});
+	}
+	runOnKeys(
+	  () => alert("Привет!"),
+	  "KeyQ",
+	  "KeyW"
+	);
+</script>

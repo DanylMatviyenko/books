@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <style>
+    body,
+    html {
+      height: 100%;
+      width: 100%;
+      padding: 0;
+      margin: 0;
+    }
+
+    #matrix {
+      width: 400px;
+      margin: auto;
+      overflow: auto;
+      text-align: justify;
+    }
+
+    #arrowTop {
+      height: 9px;
+      width: 14px;
+      color: green;
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      cursor: pointer;
+    }
+
+    #arrowTop::before {
+      content: '▲';
+    }
+    .hide {
+      display: none;
+    }
+  </style>
+  <meta charset="utf-8">
+</head>
+
+<body>
+
+  <div id="matrix">
+    <script>
+      for (let i = 0; i < 2000; i++) document.writeln(i);
+    </script>
+  </div>
+
+  <div id="arrowTop" class="hide"></div>
+
+  <script>
+    /*jshint esversion: 6*/
+    window.addEventListener('scroll', function() {
+      if(window.pageYOffset >= document.documentElement.offsetHeight) {
+        arrowTop.classList.remove('hide');
+      }else {
+        arrowTop.classList.add('hide');
+      }
+    });
+
+    arrowTop.addEventListener('click', function(){
+      document.documentElement.scrollTop = 0;
+    });
+  </script>
+
+</body>
+</html>

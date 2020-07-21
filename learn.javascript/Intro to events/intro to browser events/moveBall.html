@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <style>
+    #field {
+      cursor: pointer;
+      width: 200px;
+      height: 150px;
+      border: 10px solid black;
+      background-color: #00FF00;
+      overflow: hidden;
+    }
+    #ball {
+      position: absolute;
+    }
+  </style>
+</head>
+
+<body style="height:2000px">
+
+  Нажмите на поле для перемещения мяча.
+  <br> Мяч не должен выходить за границы поля.
+
+
+  <div id="field">
+    <img src="https://ru.js.cx/clipart/ball.svg" id="ball"> . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+    . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+  </div>
+
+
+<script>
+  /*jshint esversion: 6*/
+    const fieldCoord = field.getBoundingClientRect();
+    ball.style.top = fieldCoord.y + field.clientTop + 'px';
+    ball.style.left = fieldCoord.x + field.clientLeft + 'px';
+    class Move { 
+      handleEvent(event) {
+        if(event.clientY - ball.offsetWidth / 2 < fieldCoord.top + field.clientTop) {
+          ball.style.top = fieldCoord.top + field.clientTop + 'px';
+        }else if(event.clientY + ball.offsetWidth / 2 > fieldCoord.bottom - field.clientTop) {
+          ball.style.top = fieldCoord.bottom - field.clientTop - ball.offsetHeight + 'px';
+        }else {
+          ball.style.top = event.clientY - ball.offsetWidth / 2 + "px";
+        }
+        if(event.clientX - ball.offsetWidth / 2 < fieldCoord.left + field.clientLeft) {
+          ball.style.left = fieldCoord.left + field.clientLeft  + 'px';
+        }else if(event.clientX + ball.offsetWidth / 2 > fieldCoord.right - field.clientLeft) {
+          ball.style.left = fieldCoord.right - field.clientLeft - ball.offsetWidth  + 'px';
+        }else {
+          ball.style.left = event.clientX - ball.offsetHeight / 2 + "px";
+        }
+      }
+    }
+    let move = new Move();
+    field.addEventListener('click', move);
+    ball.style.transition = 'all 1s linear';
+</script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+</head>
+<body>
+<style>
+.close,
+.open {
+	display: none;
+	color: green;
+}
+.drop-trigger {
+	cursor: pointer;
+}
+ul {
+	display: none;
+	list-style-type: none;
+}
+.show-block {
+	display: block;
+}
+.swap-inline {
+	display: inline;
+}
+</style>
+  <div class="drop-trigger">
+  	<span class="close">▶</span><span class="open swap-inline">▼</span> Сладости (нажми меня)!
+  </div>
+  <ul class="hide">
+    <li>Пирожное</li>
+    <li>Пончик</li>
+    <li>Мёд</li>
+  </ul>
+
+  
+<script>
+const UL = document.querySelector('ul');
+const divTrigger = document.querySelector('.drop-trigger');
+const inlineSwap = document.querySelectorAll('.drop-trigger span');
+
+divTrigger.addEventListener('click', listMove);
+
+function listMove() {
+	for(let span of inlineSwap) {
+		span.classList.toggle('swap-inline');
+	}
+	UL.classList.toggle('show-block');
+}
+  
+</script>
+
+</body>
+</html>

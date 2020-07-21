@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<body>
+<h1>Mountains</h1>
+
+<div id="mountains"></div>
+</body>
+
+
+<script>
+  /*jshint esversion:6*/
+  const MOUNTAINS = [
+    {name: "Kilimanjaro", height: 5895, place: "Tanzania"},
+    {name: "Everest", height: 8848, place: "Nepal"},
+    {name: "Mount Fuji", height: 3776, place: "Japan"},
+    {name: "Vaalserberg", height: 323, place: "Netherlands"},
+    {name: "Denali", height: 6168, place: "United States"},
+    {name: "Popocatepetl", height: 5465, place: "Mexico"},
+    {name: "Mont Blanc", height: 4808, place: "Italy/France"}
+  ];
+
+  let mountainsTable = document.createElement('table');
+  mountainsTable.innerHTML = '<tr></tr>';
+  mountains.append(mountainsTable);
+  for(let headerName of Object.keys(MOUNTAINS[0])) {
+    let th = document.createElement('th');
+    th.textContent = `${headerName}`;
+    document.querySelector('tr').append(th);
+  }
+  for(let obj of MOUNTAINS) {
+    let tr = document.createElement('tr');
+    tr.innerHTML = `
+    <td>${obj.name}</td>
+    <td style="text-align: right;">${obj.height}</td> 
+    <td>${obj.place}</td> 
+    `;
+    mountainsTable.append(tr);
+  }
+  // Your code here
+</script>

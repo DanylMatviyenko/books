@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <style>
+    html,
+body {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+#prompt-form {
+  display: inline-block;
+  padding: 5px 5px 5px 70px;
+  width: 200px;
+  border: 1px solid black;
+  background: white url(https://en.js.cx/clipart/prompt.png) no-repeat left 5px;
+  vertical-align: middle;
+}
+
+#prompt-form-container {
+  display: none;
+  background-color: rgba(0,0,0,.7);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+
+#prompt-form-container:before {
+  display: inline-block;
+  height: 100%;
+  content: '';
+  vertical-align: middle;
+}
+
+#prompt-form input[name="text"] {
+  display: block;
+  margin: 5px;
+  width: 180px;
+}
+  </style>
+</head>
+
+<body>
+  <input type="button" value="Кликните, чтобы увидеть форму.">
+  
+  <div id="prompt-form-container">
+    <form id="prompt-form" onsubmit="return false">
+      <div id="prompt-message">Введите что-нибудь...
+        <br>Пожалуйста..</div>
+      <input name="text" type="text">
+      <input type="submit" value="Ok">
+      <input type="button" name="cancel" value="Отмена">
+    </form>
+  </div>
+
+  <script>
+    /*jshint esversion:6*/
+
+    const form = document.querySelector('form');
+
+    const modalForm = function(event) {
+      if (event.code !== 'Tab') return;
+
+      if(form.elements[form.elements.length - 1] === document.activeElement && event.shiftKey === false) {
+        form.elements[0].focus();
+        event.preventDefault();
+      }else if(form.elements[0] === document.activeElement && event.shiftKey === true) {
+        form.elements[form.elements.length - 1].focus();
+        event.preventDefault();  
+      }
+    };
+
+    const escCancel = function(event) {
+      if(event.code === 'Escape') {
+        document.getElementsByName('cancel')[0].click();
+      }
+    };
+
+    const hideForm = function() {
+      form.parentElement.style.display = 'none';
+      form.removeEventListener('keydown', modalForm);
+      form.removeEventListener('keydown', escCancel);
+      document.getElementsByName('text')[0].value = '';
+    };
+
+    const showPrompt = function(text, callback) {
+        const handleFormSend = function(event) {
+          const button = event.target.closest('input');
+
+          if(!button) return;
+
+          if(button.type === 'submit') {
+            callback(form.elements[0].value);
+          }else if(button.name === 'cancel') {
+            callback(null);
+          }
+
+        hideForm();
+      }; 
+      form.querySelector('#prompt-message').innerHTML = text;
+      form.parentElement.style.display = 'block';
+      form.elements[0].focus();
+      form.addEventListener('keydown', modalForm);
+      form.onclick = handleFormSend;
+      form.addEventListener('keydown', escCancel);
+    };
+
+
+
+    document.querySelector('input').onclick = function() {
+      showPrompt("Введите что-нибудь<br>...умное :)", function(value) {
+      alert(value);
+    });
+    };
+  </script>
+</body>
+
+</html>

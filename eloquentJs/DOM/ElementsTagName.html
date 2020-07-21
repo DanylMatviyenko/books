@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<body>
+<h1>Heading with a <span>span</span> element.</h1>
+<p>A paragraph with <span>one</span>, <span>two</span>
+  spans.</p>
+</body>
+
+
+<script>
+  /*jshint esversion:6*/
+  function byTagName(node, tagName) {
+    let tagArray = [];
+    countKids(node, tagArray, tagName);
+    return tagArray;
+  }
+  function countKids(node, arr, tagName) {
+    for(let kid of node.childNodes) {
+      if(kid.nodeType === 1) {
+        if(kid.nodeName === tagName.toUpperCase()) {
+          arr.push(kid.nodeName.toLowerCase());
+        }
+        countKids(kid, arr, tagName);
+      }
+    }
+}
+
+  console.log(byTagName(document.body, "h1"));
+  console.log(byTagName(document.body, "span"));
+  let para = document.querySelector("p");
+  console.log(byTagName(para, "span"));
+</script>

@@ -1,0 +1,93 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <style>
+    table {
+       border-collapse: collapse;
+     }
+     th, td {
+       border: 1px solid black;
+       padding: 4px;
+     }
+     th {
+       cursor: pointer;
+     }
+     th:hover {
+       background: yellow;
+     }
+  </style>
+</head>
+
+<body>
+
+  <table id="grid">
+    <thead>
+      <tr>
+        <th data-type="number">Возраст</th>
+        <th data-type="string">Имя</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>5</td>
+        <td>Вася</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>Петя</td>
+      </tr>
+      <tr>
+        <td>12</td>
+        <td>Женя</td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td>Маша</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>Илья</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <script>
+    /*jshint esversion:6*/
+    const tableSort = (function () {
+      const _table = document.getElementById('grid');
+      const _tbody = document.querySelector('tbody');
+
+      const _sortTr = function(trList, dataType, cellIndex) {
+          if(dataType === 'number') {
+              trList.sort((a,b) => 
+                +a.querySelectorAll('td')[cellIndex].textContent - +b.querySelectorAll('td')[cellIndex].textContent
+              );
+          }else {
+            trList.sort((a,b) => 
+              a.querySelectorAll('td')[cellIndex].textContent.localeCompare(b.querySelectorAll('td')[cellIndex].textContent)
+            );
+          }
+      };
+
+      const _insertTd = function(rowList) {
+        _tbody.innerHTML = '';
+
+          _tbody.append(...rowList);
+      };
+      _initialSort = function(event) {
+        const target = event.target.closest('th');
+        const dataType = target.dataset.type;
+        const rowsList = Array.from(_tbody.querySelectorAll('tr'));
+        if(!dataType) return;
+        
+        _sortTr(rowsList, dataType, target.cellIndex);
+        _insertTd(rowsList);
+      }; 
+      _table.onclick = _initialSort;
+    })();
+  </script>
+
+</body>
+</html>

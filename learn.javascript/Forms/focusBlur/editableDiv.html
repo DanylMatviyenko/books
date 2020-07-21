@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Div</title>
+	<style>
+		.editable,
+		.textarea {
+			border: 1px solid #000;
+			width: 406px;
+			height: 156px;
+		}
+		.textarea {
+			outline: 2px solid blue;
+		}
+	</style>
+</head>
+<body>
+	<div class="editable">Текст</div>
+
+	<script>
+		/*jshint esversion:6*/
+		const div = document.querySelector('.editable');
+		const textarea = document.createElement('textarea');
+
+		const areaBlur = function() {
+			div.innerHTML = textarea.value;
+			textarea.remove();
+
+			document.body.append(div);
+		};
+
+		div.addEventListener('click', function() {
+
+			textarea.value = div.innerHTML;
+			div.remove();
+
+			textarea.classList.add('textarea');
+			document.body.append(textarea);
+			textarea.focus();
+		});
+
+		textarea.addEventListener('blur', areaBlur);
+		textarea.addEventListener('keydown', function(event) {
+			if(event.code === 'Enter') {
+				textarea.blur();
+			} 
+		});
+	</script>
+</body>
+</html>
